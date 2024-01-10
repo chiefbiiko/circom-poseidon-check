@@ -3,11 +3,11 @@ pragma circom 2.1.7;
 include "../node_modules/circomlib/circuits/poseidon.circom";
 
 template Check() {
-    signal output zero_hash;
+    signal input msg;
+    signal output hash;
     component hasher = Poseidon(1);
-    hasher.inputs[0] <== 0;
-    zero_hash <== hasher.out;
-    log(">> zero hash", zero_hash);
+    hasher.inputs[0] <== msg;
+    hash <== hasher.out;
 }
 
-component main = Check();
+component main { public [msg] } = Check();
